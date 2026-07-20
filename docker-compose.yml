@@ -1,0 +1,20 @@
+services:
+  server:
+    build:
+      context: ./server
+    container_name: server
+
+  client:
+    build:
+      context: ./client
+    container_name: client
+
+  nginx:
+    build:
+      context: ./nginx
+    container_name: nginx
+    ports:
+      - "80:80"
+    depends_on:
+      - client
+      - server
