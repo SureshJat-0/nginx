@@ -1,8 +1,23 @@
 services:
-  server:
+  # 3 Servers for load balancing
+  server1:
+    hostname: server1
+    restart: unless-stopped
     build:
       context: ./server
-    container_name: server
+    container_name: server1
+  server2:
+    hostname: server2
+    restart: unless-stopped
+    build:
+      context: ./server
+    container_name: server2
+  server3:
+    hostname: server3
+    restart: unless-stopped
+    build:
+      context: ./server
+    container_name: server3
 
   client:
     build:
@@ -17,4 +32,6 @@ services:
       - "80:80"
     depends_on:
       - client
-      - server
+      - server1
+      - server2
+      - server3
